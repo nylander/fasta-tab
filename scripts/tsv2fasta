@@ -1,0 +1,10 @@
+#!/usr/bin/env perl
+# tsv2fasta
+# Johan Nylander
+while(<>) {
+    chomp;
+    my ($h, @S) = split /\t/;
+    my $s = join('', @S);
+    $s =~ s/\S{60}/$&\n/sg;
+    print STDOUT ">$h\n$s\n";
+}

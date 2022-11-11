@@ -1,37 +1,69 @@
 # fasta $\leftrightarrow$ tab
 
-- Last modified: mån okt 21, 2019  09:08
+- Last modified: fre nov 11, 2022  03:20
 - Sign: Johan Nylander
 
 ## Description
 
-Perlscripts to transform fasta formatted files to tab separated --- and back.
+Scripts to transform fasta formatted files to tab separated --- and back.
 
-The scripts read from STDIN and writes to STDOUT.
+In addition, two scripts are also provided for converting fasta to csv or tsv
+separated files where all positions are separated by the delimiter.
+
+Note: here we use the terms "tab" and "tsv" for different output (see Input and
+output examples below).
+
+The scripts reads from STDIN and writes to STDOUT.
+
+## Input and output examples
+
+Input example in fasta format
+
+    >label
+    ACGT
+
+Output, tab separated:
+
+    label    ACGT
+
+Output, tsv:
+
+    label    A   C   G   T
+
+Output, csv:
+
+    label,A,C,G,T
 
 ## Usage
 
-#### From fasta to tab
+    # From fasta to tab
+    $ fasta2tab infile.fas
 
-    fasta2tab infile(s).fas
+    # From tab to fasta
+    $ tab2fasta infile.tab
 
-#### From tab to fasta
+    # From fasta to tsv
+    $ fasta2tsv infile.fas
 
-    tab2fasta infile(s).tsv
+    # From tsv tp fasta
+    $ tsv2fasta infile.tsv
 
-#### Example
+    # From fasta to csv
+    $ fasta2csv infile.fas
 
-    fasta2tab infile.fas | sort | tab2fasta > sorted.fas
+    # From csv to fasta
+    $ csv2fasta infile.csv
 
-## Perl oneliners
+## Examples
 
-The following oneliners accomplishes the same tasks.
+    $ fasta2tab infile.fas | sort | tab2fasta > sorted-on-header.fas
+    $ fasta2tab infile.fas | sort -k2 | tab2fasta > sorted-on-sequence.fas
+
+## Perl oneliners for fasta to tab
+
+The following oneliners accomplishes the same tasks (fasta - tab).
 And remember, "there are several ways to do it"!
 
-#### From fasta to tab
+    $ perl -0076 -ne 'chomp;($h,@S)=split/\n/;$s=join("",@S);print"$h\t$s\n"unless(!$h)' infile.fas
+    $ perl -naF\t -e 'print">$F[0]\n$F[1]\n"' infile.tab
 
-    perl -0076 -ne 'chomp;($h,@S)=split/\n/;$s=join("",@S);print"$h\t$s\n"unless(!$h)' infile(s).fas
-
-#### From tab to fasta
-
-    perl -naF\t -e 'print">$F[0]\n$F[1]\n"' infile(s).tsv
