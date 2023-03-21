@@ -1,6 +1,6 @@
 # fasta $\leftrightarrow$ tab
 
-- Last modified: fre nov 11, 2022  03:20
+- Last modified: tis mar 21, 2023  03:49
 - Sign: Johan Nylander
 
 ## Description
@@ -45,7 +45,7 @@ Output, csv:
     # From fasta to tsv
     $ fasta2tsv infile.fas
 
-    # From tsv tp fasta
+    # From tsv to fasta
     $ tsv2fasta infile.tsv
 
     # From fasta to csv
@@ -59,7 +59,7 @@ Output, csv:
     $ fasta2tab infile.fas | sort | tab2fasta > sorted-on-header.fas
     $ fasta2tab infile.fas | sort -k2 | tab2fasta > sorted-on-sequence.fas
 
-## Perl oneliners for fasta to tab
+## Perl one-liners for fasta to tab
 
 The following oneliners accomplishes the same tasks (fasta - tab).
 And remember, "there are several ways to do it"!
